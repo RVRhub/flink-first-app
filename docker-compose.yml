@@ -1,0 +1,34 @@
+version: "2.2"
+services:
+  jobmanager:
+    build: ./batch
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./batch/data.cvs:/opt/flink/data.cvs
+      - ./build/libs:/opt/flink/usrlib/artifact
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+
+  taskmanager:
+    image: flink:latest
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    scale: 1
+    volumes:
+      - ./batch/data.cvs:/opt/flink/data.cvs
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200

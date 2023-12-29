@@ -1,0 +1,10 @@
+default_locale: en-EN
+fields:
+  - name: id
+    generators: [ Number#randomNumber ]
+  - name: lastname
+    nullRate: 0.1
+    generators: [ Name#lastName ]
+  - name: firstname
+    locale: en-EN
+    generators: [ Name#firstName ]
