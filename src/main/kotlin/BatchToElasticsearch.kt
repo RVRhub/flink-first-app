@@ -30,7 +30,7 @@ class BatchToElasticsearch {
                 .includeFields("111")
                 .pojoType(PersonDto::class.java, "id", "lastname", "firstname")
 
-            val httpHosts = arrayListOf(HttpHost("localhost", 9200, "http"))
+            val httpHosts = arrayListOf(HttpHost("elasticsearch", 9200, "http"))
 
             val esSinkBuilder = ElasticsearchSink.Builder<PersonDto>(
                 httpHosts
