@@ -1,12 +1,6 @@
+This is command that could be used to get list of IP addresses of your docker Colima network
 ```bash
-
-
-```
-
-```bash
-./gradlew shadowJar
- flink run -c dev.rvr.WordCount /tmp/flink-web-a4268ba9-cad0-4c9a-b067-368f32941738/flink-web-upload/8113a8f0-97cf-478d-a817-77663345ae10_flink-app-0.0.1.jar
-
+colima list
 ```
 
 ### Create a JAR file
@@ -25,17 +19,44 @@ Generate data.csv using datafaker-gen. Go to the _datafaker-gen_ folder and run:
 path/my/datafaker_gen -f csv -n 2 -sink textfile
 ```
 
+### Run Flink job from savepoint
+
+```bash
+/opt/flink/bin/flink savepoint f43a5004f9f053c5d1e30312a14ac351 /opt/flink/savepoints
+/opt/flink/bin/flink cancel -s /opt/flink/savepoints e7954328ec61c4385ea66da3db2cac96
+
+/opt/flink/bin/flink run -s file:/opt/flink/savepoints/savepoint-72762c-0d8190a23ba0 -n -c dev.rvr.StreamingWithSnapshot /opt/flink/usrlib/artifact/flink-app-0.0.1.jar 
+```
+
 ### What to do next
 
 - [x] Configure cron job to run Flink job
 - [ ] How to work with savepoints in Flink
-- [ ] To understand batch and stream processing in Flink
-- [ ] Try to write a simple Flink program based on batch processing
+- [x] To understand batch and stream processing in Flink
+- [x] Try to write a simple Flink program based on batch processing
 - [ ] To understand how to use Flink with Kafka
-- [ ] To understand how to use Flink with ElasticSearch
-- [ ] Fix a bug
+- [x] To understand how to use Flink with ElasticSearch
+- [ ] Write description of the project
 
 ### Questions
 
  1. What is the difference between batch and stream processing in Flink?
-2. 
+
+
+### How to create JAR for certain job
+
+1. Change Main-Class in build.gradle.kts
+
+```kotlin
+    manifest {
+        attributes["Main-Class"] = "dev.rvr.StreamingWithSnapshot"
+    }
+```
+    
+2. Uncomment the lines with needed job in _./batch/script.sh_
+   
+3. Run the command to create JAR file
+
+```bash
+./gradlew clean shadowJar
+```

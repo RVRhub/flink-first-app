@@ -27,7 +27,7 @@ tasks {
         archiveVersion.set("0.0.1")
         archiveClassifier.set("")
         manifest {
-            attributes["Main-Class"] = "dev.rvr.BatchToElasticsearch"
+            attributes["Main-Class"] = "dev.rvr.StreamingWithSnapshot"
         }
     }
 }

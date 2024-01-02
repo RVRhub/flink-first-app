@@ -3,7 +3,6 @@ package dev.rvr
 import org.apache.flink.api.common.functions.RuntimeContext
 import org.apache.flink.api.java.ExecutionEnvironment
 import org.apache.flink.api.java.operators.DataSource
-import org.apache.flink.api.java.tuple.Tuple3
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 import org.apache.flink.streaming.connectors.elasticsearch7.ElasticsearchSink
 import org.apache.flink.streaming.connectors.elasticsearch.RequestIndexer
@@ -11,7 +10,6 @@ import org.apache.http.HttpHost
 import org.apache.logging.log4j.LogManager
 import org.elasticsearch.client.Requests
 import java.io.File
-import java.util.*
 
 class BatchToElasticsearch {
     companion object {
@@ -26,7 +24,7 @@ class BatchToElasticsearch {
             LOG.info("Current working directory: ${System.getProperty("user.dir")}")
             LOG.info("Check if file exists: ${File("/opt/flink/data.cvs").exists()}")
 
-            val data: DataSource<PersonDto> = ExecutionEnvironment.getExecutionEnvironment().readCsvFile("/opt/flink/data.cvs")
+            val data: DataSource<PersonDto> = env.readCsvFile("/opt/flink/data.cvs")
                 .includeFields("111")
                 .pojoType(PersonDto::class.java, "id", "lastname", "firstname")
 
