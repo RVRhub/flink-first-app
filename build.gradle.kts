@@ -10,11 +10,14 @@ repositories {
     mavenCentral()
 }
 
+var flinkVersion = "1.17.2"
+
 dependencies {
-    implementation("org.apache.flink:flink-java:1.14.0")
-    implementation("org.apache.flink:flink-streaming-java_2.11:1.14.0")
-    implementation("org.apache.flink:flink-clients_2.11:1.14.0")
-    implementation("org.apache.flink:flink-connector-elasticsearch7_2.11:1.14.0")
+    implementation("org.apache.flink:flink-java:$flinkVersion")
+    implementation("org.apache.flink:flink-streaming-java:$flinkVersion")
+    implementation("org.apache.flink:flink-clients:$flinkVersion")
+    implementation("org.apache.flink:flink-connector-kafka:$flinkVersion")
+    implementation("org.apache.flink:flink-connector-elasticsearch7:1.16.3")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -27,7 +30,7 @@ tasks {
         archiveVersion.set("0.0.1")
         archiveClassifier.set("")
         manifest {
-            attributes["Main-Class"] = "dev.rvr.StreamingWithSnapshot"
+            attributes["Main-Class"] = "dev.rvr.KafkaStreaming"
         }
     }
 }

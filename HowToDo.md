@@ -19,6 +19,10 @@ Generate data.csv using datafaker-gen. Go to the _datafaker-gen_ folder and run:
 path/my/datafaker_gen -f csv -n 2 -sink textfile
 ```
 
+### How to run KafkaStream 
+Use this fork: https://github.com/RVRhub/kafka-stack-docker-compose
+
+
 ### Run Flink job from savepoint
 
 ```bash
@@ -34,7 +38,7 @@ path/my/datafaker_gen -f csv -n 2 -sink textfile
 - [ ] How to work with savepoints in Flink
 - [x] To understand batch and stream processing in Flink
 - [x] Try to write a simple Flink program based on batch processing
-- [ ] To understand how to use Flink with Kafka
+- [x] To understand how to use Flink with Kafka
 - [x] To understand how to use Flink with ElasticSearch
 - [ ] Write description of the project
 
